@@ -1,0 +1,69 @@
+require 'bundler'
+Bundler::GemHelper.install_tasks
+
+desc "Run all tests"
+task :default => :noop
+
+desc "Run the server"
+task :run => :noop
+
+desc "Edit the changelog"
+task :changelog do
+  unless `which git-changelog`.empty?
+    sh "git-changelog"
+  else
+    abort "git-changelog isn't found. Install it with `brew install git-extras`"
+  end
+end
+
+desc "Create tag for current version and push"
+task :release => :build do
+  unless `git branch` =~ /^\* master$/
+    puts "You must be on the master branch to release!"
+    exit!
+  end
+  sh "git commit --allow-empty -a -m 'Release #{version}'"
+  sh "git tag v#{version}"
+  sh "git push origin master"
+  sh "git push origin v#{version}"
+#  sh "gem push pkg/#{name}-#{version}.gem"
+end
+
+# Placeholder for task that are part of the spec.
+task :noop do
+  # nothing to do here
+end
+
+desc "Check that this gem conforms to gembase standards"
+task :lint => %w(
+  lint:gemspec
+  lint:rake_default
+  lint:gemfile
+  lint:changelog
+  lint:autotest
+)
+
+namespace :lint do
+  task :gemspec do
+    # project.gemspec exists
+  end
+  task :rake_default do
+    # the default rake task does something other than noop
+  end
+  task :rake_run do
+    # optional
+  end
+  task :gemfile do
+    # Gemfile exists and contains "rubygems" and "gemspec"
+    # .gitignore contains "Gemfile.lock"
+  end
+  task :changelog do
+    # CHANGELOG.md exits
+  end
+  task :autotest do
+    # what to test?
+    # .autotest exists
+    # .rspec exists
+  end
+end
+
