@@ -2,13 +2,14 @@ dir=$(cd `dirname $0` && pwd)
 name=`basename $dir`
 
 if [ ! -d .git ]; then
-  echo "Initializing $name with bundle gem"
-  cd .. && bundle gem $name
-  cd $name
   git=true
 else
   git=false
 fi
+
+echo "Initializing $name with bundle gem"
+cd .. && bundle gem $name
+cd $name
 
 echo 'Creating Rakefile'
 echo 'load "Rakefile.base"' > Rakefile
