@@ -1,12 +1,6 @@
 dir=$(cd `dirname $0` && pwd)
 name=`basename $dir`
 
-if [ -d .git ]; then
-  git=true
-else
-  git=false
-fi
-
 echo "Initializing $name with bundle gem"
 cd .. && echo 'a' | bundle gem $name && cd $name
 
@@ -22,8 +16,5 @@ echo "0.0.1 / `date '+%Y-%m-%d'`" > CHANGELOG.md
 echo 'Creating README.md'
 echo "# $name" > README.md
 
+# bundler adds to git so we will too.
 git add .
-
-if [ $git == false ]; then
-  git commit -m "Initialize with gembase"
-fi
