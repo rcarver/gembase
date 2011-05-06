@@ -8,7 +8,11 @@ echo 'Creating Rakefile'
 echo 'load "Rakefile.base"' > Rakefile
 
 echo 'Creating Rakefile.base'
-curl -sO "https://github.com/rcarver/gembase/raw/master/Rakefile.base"
+if [ $RAKEBASE != "" ]; then
+  cp $RAKEBASE .
+else
+  curl -sO "https://github.com/rcarver/gembase/raw/master/Rakefile.base"
+fi
 
 echo 'Creating CHANGELOG.md'
 echo "0.0.1 / YYYY-MM-DD\n==================\n\n  * Initial version" > CHANGELOG.md

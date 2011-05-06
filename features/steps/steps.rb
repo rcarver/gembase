@@ -5,7 +5,7 @@ Given /^I initialize a gem called "([^"]*)"$/ do |name|
 end
 
 When /^I run the gembase install script$/ do
-  `cd #{current_dir} && cat ../../../init.sh | sh`
+  `cd #{current_dir} && cat ../../../init.sh | RAKEBASE=../../../Rakefile.base sh`
 end
 
 Given /^I commit the changes with "([^"]*)"$/ do |msg|
@@ -15,8 +15,21 @@ Given /^I commit the changes with "([^"]*)"$/ do |msg|
 end
 
 Given /^the code lives on github$/ do
-  `cd #{current_dir} && cd .. && mkdir github-repo && cd github-repo && git init --bare`
-  `cd #{current_dir} && git remote add origin ../github-repo`
+  Dir.chdir(File.join(current_dir, "..")) {
+    Dir.mkdir("github-repo")
+  }
+  Dir.chdir(File.join(current_dir, "..", "github-repo")) {
+    `git init --bare`
+  }
+  Dir.chdir(current_dir) {
+    `git remote add origin ../github-repo`
+  }
+end
+
+Given /^I push the latest changes to github$/ do
+  Dir.chdir(current_dir) {
+    When %[I successfully run `git push -u origin master`]
+  }
 end
 
 When /^I fill in project information in the gemspec$/ do
@@ -31,6 +44,18 @@ When /^I fill in project information in the gemspec$/ do
     info.each { |a, b|
       `{ rm #{file} && sed -e 's/#{a}/#{b}/' > #{file}; } < #{file}`
     }
+  }
+end
+
+Then /^my project has the tag "([^"]*)"$/ do |tag_name|
+  Dir.chdir(current_dir) {
+    `git tag`.should include(tag_name)
+  }
+end
+
+Then /^the latest commit on github should be "([^"]*)"$/ do |msg|
+  Dir.chdir(File.join(current_dir, "..", "github-repo")) {
+    `git log`.should include(msg)
   }
 end
 

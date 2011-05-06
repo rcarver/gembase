@@ -1,6 +1,20 @@
 require 'bundler'
 Bundler::GemHelper.install_tasks
 
+module Bundler
+  class GemHelper
+    # Override Bundler's concept of release.
+    def release_gem
+      guard_already_tagged
+      # changelog
+      sh "git commit --allow-empty -a -m 'Release #{version_tag}'"
+      tag_version
+      build_gem
+      git_push
+    end
+  end
+end
+
 desc "Run all tests"
 task :default => :noop
 
@@ -19,19 +33,6 @@ task :changelog do
   else
     abort "git-changelog isn't found. Install it with `brew install git-extras`"
   end
-end
-
-desc "Create tag for current version and push"
-task :release => :build do
-  unless `git branch` =~ /^\* master$/
-    puts "You must be on the master branch to release!"
-    exit!
-  end
-  sh "git commit --allow-empty -a -m 'Release #{version}'"
-  sh "git tag v#{version}"
-  sh "git push origin master"
-  sh "git push origin v#{version}"
-#  sh "gem push pkg/#{name}-#{version}.gem"
 end
 
 # Placeholder for task that are part of the spec.
