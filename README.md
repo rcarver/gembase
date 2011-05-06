@@ -30,7 +30,7 @@ gembase projects conform to the following rules:
 
 * `rake` runs the full test suite
 * `rake run` runs a server if applicable
-* `rake release` ensures an up-to-date gemspec and CHANGELOG, sets 
+* `rake release` ensures an up-to-date gemspec and CHANGELOG, sets
   a git tag based on `VERSION` (a rubyforge project is not assumed).
   and pushes those changes.
 
@@ -41,8 +41,24 @@ should look something like this:
 
     load 'Rakefile.base'
 
-    task :default => :test
-
     # define :test task and whatever else you want.
 
+Keeping up to date with the latest rake tasks is easy.
+
+    rake selfupdate
+
+# Minimal
+
+If you don't want gembase to bootstrap your entire project
+but would like to use its conventions rake tasks, just grab
+Rakefile.base and load it up.
+
+    curl -sO https://github.com/rcarver/gembase/raw/master/Rakefile.base
+
+# About
+
+Gembase was created to keep Typekit's internal gems consistent. It was
+written by Ryan Carver and Matt Colyer.
+
+License: MIT
 
