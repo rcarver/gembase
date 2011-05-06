@@ -38,37 +38,3 @@ end
 task :noop do
   # nothing to do here
 end
-
-desc "Check that this gem conforms to gembase standards"
-task :lint => %w(
-  lint:gemspec
-  lint:rake_default
-  lint:gemfile
-  lint:changelog
-  lint:autotest
-)
-
-namespace :lint do
-  task :gemspec do
-    # project.gemspec exists
-  end
-  task :rake_default do
-    # the default rake task does something other than noop
-  end
-  task :rake_run do
-    # optional
-  end
-  task :gemfile do
-    # Gemfile exists and contains "rubygems" and "gemspec"
-    # .gitignore contains "Gemfile.lock"
-  end
-  task :changelog do
-    # CHANGELOG.md exits
-  end
-  task :autotest do
-    # what to test?
-    # .autotest exists
-    # .rspec exists
-  end
-end
-
