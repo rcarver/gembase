@@ -5,6 +5,5 @@ if [ ! -d .git ]; then
   dir=$(cd `dirname $0` && pwd)
   name=`basename $dir`
   echo "Initializing $name with bundle gem"
-  `bundle gem $name`
-  `cd $name`
+  cd .. && bundle gem $name
 fi
