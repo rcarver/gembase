@@ -7,7 +7,7 @@ task :default => :noop
 desc "Run the server"
 task :run => :noop
 
-desc "Update Rakefile.base" do
+desc "Update Rakefile.base"
 task :selfupdate do
   sh "curl -sO https://github.com/rcarver/gembase/raw/master/Rakefile.base"
 end

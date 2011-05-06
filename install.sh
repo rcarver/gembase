@@ -6,8 +6,10 @@ if [ ! -d .git ]; then
   cd $name
 fi
 
-echo "Initializing Rakefile"
+echo 'Creating Rakefile'
 echo 'load "Rakefile.base"' > Rakefile
 
-echo 'Updating Rakefile.base'
+echo 'Creating Rakefile.base'
 curl -sO "https://github.com/rcarver/gembase/raw/master/Rakefile.base"
+
+git add .
