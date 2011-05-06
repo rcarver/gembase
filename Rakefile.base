@@ -7,6 +7,11 @@ task :default => :noop
 desc "Run the server"
 task :run => :noop
 
+desc "Update Rakefile.base" do
+task :selfupdate do
+  `curl -fsSLk https://github.com/rcarver/gembase/raw/master/install.sh | sh`
+end
+
 desc "Edit the changelog"
 task :changelog do
   unless `which git-changelog`.empty?
