@@ -8,8 +8,7 @@ else
 fi
 
 echo "Initializing $name with bundle gem"
-cd .. && echo 'a' | bundle gem $name
-cd $name
+cd .. && echo 'a' | bundle gem $name && cd $name
 
 echo 'Creating Rakefile'
 echo 'load "Rakefile.base"' > Rakefile
