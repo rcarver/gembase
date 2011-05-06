@@ -6,11 +6,18 @@ module Bundler
     # Override Bundler's concept of release.
     def release_gem
       guard_already_tagged
-      # changelog
+      edit_changelog
       sh "git commit --allow-empty -a -m 'Release #{version_tag}'"
       tag_version
       build_gem
       git_push
+    end
+    def edit_changelog
+      unless `which git-changelog`.empty?
+        sh "git-changelog"
+      else
+        abort "git-changelog isn't found. Install it with `brew install git-extras`"
+      end
     end
   end
 end
@@ -24,15 +31,6 @@ task :run => :noop
 desc "Update Rakefile.base"
 task :selfupdate do
   sh "curl -sO https://github.com/rcarver/gembase/raw/master/Rakefile.base"
-end
-
-desc "Edit the changelog"
-task :changelog do
-  unless `which git-changelog`.empty?
-    sh "git-changelog"
-  else
-    abort "git-changelog isn't found. Install it with `brew install git-extras`"
-  end
 end
 
 # Placeholder for task that are part of the spec.

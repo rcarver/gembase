@@ -1,6 +1,5 @@
 Feature: Gembase releases gems
 
-  @wip
   Scenario: Release my gem
     Given I initialize a gem called "myproject"
     And I commit the changes with "initialize the gem"
@@ -9,8 +8,9 @@ Feature: Gembase releases gems
     When I fill in project information in the gemspec
     And I commit the changes with "setup gemspec"
     And I successfully run `rake release`
-    And a file named "pkg/myproject-0.0.1.gem" should exist
-    Then my project has the tag "v0.0.1"
+    Then a file named "pkg/myproject-0.0.1.gem" should exist
+    And my project has the tag "v0.0.1"
+    And the changelog contains "setup gemspec"
     And the latest commit on github should be "Release v0.0.1"
     # try to release again it should fail
     # then change the tag and release again

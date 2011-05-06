@@ -53,6 +53,12 @@ Then /^my project has the tag "([^"]*)"$/ do |tag_name|
   }
 end
 
+Then /^the changelog contains "([^"]*)"$/ do |text|
+  Dir.chdir(current_dir) {
+    `cat CHANGELOG.md`.should include(text)
+  }
+end
+
 Then /^the latest commit on github should be "([^"]*)"$/ do |msg|
   Dir.chdir(File.join(current_dir, "..", "github-repo")) {
     `git log`.should include(msg)
