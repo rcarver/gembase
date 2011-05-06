@@ -11,7 +11,7 @@ echo 'Creating Rakefile.base'
 curl -sO "https://github.com/rcarver/gembase/raw/master/Rakefile.base"
 
 echo 'Creating CHANGELOG.md'
-echo "0.0.1 / `date '+%Y-%m-%d'`" > CHANGELOG.md
+echo "0.0.1 / `date '+%Y-%m-%d'`\n==================\n\n  * Initial version" > CHANGELOG.md
 
 echo 'Creating README.md'
 echo "# $name" > README.md
