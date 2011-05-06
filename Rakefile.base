@@ -9,7 +9,7 @@ task :run => :noop
 
 desc "Update Rakefile.base" do
 task :selfupdate do
-  `curl -fsSLk https://github.com/rcarver/gembase/raw/master/install.sh | sh`
+  sh "curl -sO https://github.com/rcarver/gembase/raw/master/Rakefile.base"
 end
 
 desc "Edit the changelog"
