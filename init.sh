@@ -5,7 +5,11 @@ echo "Initializing $name with bundle gem"
 cd .. && echo 'a' | bundle gem $name && cd $name
 
 echo 'Creating Rakefile'
-echo 'load "Rakefile.base"' > Rakefile
+if [ $RAKETEMPLATE != "" ]; then
+  cp $RAKETEMPLATE Rakefile
+else
+  curl -s "https://github.com/rcarver/gembase/raw/master/Rakefile.template" > Rakefile
+fi
 
 echo 'Creating Rakefile.base'
 if [ $RAKEBASE != "" ]; then

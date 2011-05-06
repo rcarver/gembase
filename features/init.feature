@@ -13,3 +13,4 @@ Feature: Gembase initializes a new gem project
     And a file named "lib/myproject.rb" should exist
     And a file named "lib/myproject/version.rb" should exist
     And the file ".gitignore" should contain "Gemfile.lock"
+    And the file "Rakefile" should contain "task :test"

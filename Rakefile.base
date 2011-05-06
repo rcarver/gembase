@@ -23,17 +23,9 @@ module Bundler
 end
 
 desc "Run all tests"
-task :default => :noop
-
-desc "Run the server"
-task :run => :noop
+task :default => :test
 
 desc "Update Rakefile.base"
 task :selfupdate do
   sh "curl -sO https://github.com/rcarver/gembase/raw/master/Rakefile.base"
-end
-
-# Placeholder for task that are part of the spec.
-task :noop do
-  # nothing to do here
 end

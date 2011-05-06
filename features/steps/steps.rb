@@ -5,7 +5,7 @@ Given /^I initialize a gem called "([^"]*)"$/ do |name|
 end
 
 When /^I run the gembase install script$/ do
-  `cd #{current_dir} && cat ../../../init.sh | RAKEBASE=../../../Rakefile.base sh`
+  `cd #{current_dir} && cat ../../../init.sh | RAKETEMPLATE=../../../Rakefile.template RAKEBASE=../../../Rakefile.base sh`
 end
 
 Given /^I commit the changes with "([^"]*)"$/ do |msg|
