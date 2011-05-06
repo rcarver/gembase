@@ -1,9 +1,13 @@
+dir=$(cd `dirname $0` && pwd)
+name=`basename $dir`
+
 if [ ! -d .git ]; then
-  dir=$(cd `dirname $0` && pwd)
-  name=`basename $dir`
   echo "Initializing $name with bundle gem"
   cd .. && bundle gem $name
   cd $name
+  git=true
+else
+  git=false
 fi
 
 echo 'Creating Rakefile'
@@ -18,5 +22,7 @@ echo "0.0.1 / `date '+%Y-%m-%d'`" > CHANGELOG.md
 echo 'Creating README.md'
 echo "# $name" > README.md
 
-git add .
-git commit -m "Initialize with gembase"
+if [ $git == true ]; then
+  git add .
+  git commit -m "Initialize with gembase"
+fi
