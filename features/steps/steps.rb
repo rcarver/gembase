@@ -47,6 +47,13 @@ When /^I fill in project information in the gemspec$/ do
   }
 end
 
+When /^I remove the rubyforge_project from the gemspec$/ do
+  file = "myproject.gemspec"
+  Dir.chdir(current_dir) {
+    `{ rm #{file} && grep -v rubyforge_project > #{file}; } < #{file}`
+  }
+end
+
 Then /^my project has the tag "([^"]*)"$/ do |tag_name|
   Dir.chdir(current_dir) {
     `git tag`.should include(tag_name)
