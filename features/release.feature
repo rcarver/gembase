@@ -12,5 +12,10 @@ Feature: Gembase releases gems
     And my project has the tag "v0.0.1"
     And the changelog contains "setup gemspec"
     And the latest commit on github should be "Release v0.0.1"
-    # try to release again it should fail
-    # then change the tag and release again
+
+  Scenario: Re-releasing the same version is forbidden
+    Given I initialize a gem called "myproject"
+    When I commit the changes with "initialize the gem"
+    And I successfully run `git tag v0.0.1`
+    And I run `rake release`
+    Then the stderr from "rake release" should contain "This tag has already been committed to the repo"
