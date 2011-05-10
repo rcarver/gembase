@@ -54,7 +54,7 @@ When /^I remove the rubyforge_project from the gemspec$/ do
   }
 end
 
-Then /^my project (does not have|has) the tag "([^"]*)"$/ do |yes_or_no, tag_name|
+Then /^my local project (does not have|has) the tag "([^"]*)"$/ do |yes_or_no, tag_name|
   Dir.chdir(current_dir) {
     if yes_or_no == "has"
       `git tag`.should include(tag_name)
@@ -70,9 +70,15 @@ Then /^the changelog contains "([^"]*)"$/ do |text|
   }
 end
 
-Then /^the latest commit on github should be "([^"]*)"$/ do |msg|
+Then /^my project on github has the commit "([^"]*)"$/ do |msg|
   Dir.chdir(File.join(current_dir, "..", "github-repo")) {
     `git log`.should include(msg)
+  }
+end
+
+Then /^my project on github has the tag "([^"]*)"$/ do |tag|
+  Dir.chdir(File.join(current_dir, "..", "github-repo")) {
+    `git tag`.should include(tag)
   }
 end
 

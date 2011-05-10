@@ -10,16 +10,24 @@ Feature: Gembase releases gems
     And I commit the changes with "setup gemspec"
     And I successfully run `rake release`
     Then a file named "pkg/myproject-0.0.1.gem" should exist
-    And my project has the tag "v0.0.1"
     And the changelog contains "setup gemspec"
-    And the latest commit on github should be "Release v0.0.1"
+    And my local project has the tag "v0.0.1"
+    And my project on github has the commit "Release v0.0.1"
+    And my project on github has the tag "v0.0.1"
 
   Scenario: Abort on a bad gemspec
     Given I initialize a gem called "myproject"
     When I commit the changes with "initialize the gem"
     And I run `rake release`
     Then the stderr from "rake release" should contain "is not an author"
-    And my project does not have the tag "v0.0.1"
+    And my local project does not have the tag "v0.0.1"
+
+  Scenario: Abort if not on the master branch
+    Given I initialize a gem called "myproject"
+    When I commit the changes with "initialize the gem"
+    And I run `git checkout -b foo`
+    And I run `rake release`
+    Then the stderr from "rake release" should contain "You must be on the master branch to release."
 
   Scenario: Re-releasing the same version is forbidden
     Given I initialize a gem called "myproject"

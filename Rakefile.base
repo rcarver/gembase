@@ -5,13 +5,22 @@ module Bundler
   class GemHelper
     # Override Bundler's concept of release.
     def release_gem
+      guard_on_master_branch
       guard_already_tagged
       build_gem
       edit_changelog
       sh "git commit --allow-empty -a -m 'Release #{version_tag}'"
       tag_version {
-        git_push
+        # Bundler's git_push pushes all branches. Let's restrict it
+        # to only the master branch since we also ensure that you
+        # always release from the master branch.
+        perform_git_push "origin master --tags"
       }
+    end
+    def guard_on_master_branch
+      unless `git branch` =~ /^\* master$/
+        abort "You must be on the master branch to release."
+      end
     end
     def edit_changelog
       unless `which git-changelog`.empty?
