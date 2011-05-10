@@ -6,11 +6,12 @@ module Bundler
     # Override Bundler's concept of release.
     def release_gem
       guard_already_tagged
+      build_gem
       edit_changelog
       sh "git commit --allow-empty -a -m 'Release #{version_tag}'"
-      tag_version
-      build_gem
-      git_push
+      tag_version {
+        git_push
+      }
     end
     def edit_changelog
       unless `which git-changelog`.empty?

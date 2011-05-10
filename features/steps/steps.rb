@@ -54,9 +54,13 @@ When /^I remove the rubyforge_project from the gemspec$/ do
   }
 end
 
-Then /^my project has the tag "([^"]*)"$/ do |tag_name|
+Then /^my project (does not have|has) the tag "([^"]*)"$/ do |yes_or_no, tag_name|
   Dir.chdir(current_dir) {
-    `git tag`.should include(tag_name)
+    if yes_or_no == "has"
+      `git tag`.should include(tag_name)
+    else
+      `git tag`.should_not include(tag_name)
+    end
   }
 end
 
