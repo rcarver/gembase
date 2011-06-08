@@ -5,7 +5,7 @@ A basic structure for ruby gems. To setup a new project, run:
     mkdir myproject
     cd myproject
 
-    curl -sLS https://github.com/rcarver/gembase/raw/master/init.sh | sh
+    curl -sLS https://raw.github.com/rcarver/gembase/master/init.sh | sh
 
 You can also use this to convert an existing project. The script will
 overwrite any existing files, but git will show you the diff.
@@ -53,7 +53,7 @@ If you don't want gembase to bootstrap your entire project
 but would like to use its conventions rake tasks, just grab
 Rakefile.base and load it up.
 
-    curl -sO https://github.com/rcarver/gembase/raw/master/Rakefile.base
+    curl -sO https://raw.github.com/rcarver/gembase/master/Rakefile.base
 
 # About
 
