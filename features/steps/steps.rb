@@ -1,7 +1,7 @@
 Given /^I initialize a gem called "([^"]*)"$/ do |name|
-  Given %[a directory named "#{name}"]
-  When %[I cd to "#{name}"]
-  And %[I run the gembase install script]
+  step %[a directory named "#{name}"]
+  step %[I cd to "#{name}"]
+  step %[I run the gembase install script]
 end
 
 When /^I run the gembase install script$/ do
@@ -28,7 +28,7 @@ end
 
 Given /^I push the latest changes to github$/ do
   Dir.chdir(current_dir) {
-    When %[I successfully run `git push -u origin master`]
+    step %[I successfully run `git push -u origin master`]
   }
 end
 
