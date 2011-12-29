@@ -19,7 +19,7 @@ Feature: Gembase releases gems
     Given I initialize a gem called "myproject"
     When I commit the changes with "initialize the gem"
     And I run `rake release`
-    Then the stderr from "rake release" should contain "is not an author"
+    Then the stderr from "rake release" should contain "is not a description"
     And my local project does not have the tag "v0.0.1"
 
   Scenario: Abort if not on the master branch
@@ -28,6 +28,12 @@ Feature: Gembase releases gems
     And I run `git checkout -b foo`
     And I run `rake release`
     Then the stderr from "rake release" should contain "You must be on the master branch to release."
+
+  Scenario: Abort without an EDITOR
+    Given I initialize a gem called "myproject"
+    And I set my EDITOR to ""
+    And I run `rake release`
+    Then the stderr from "rake release" should contain "You must set an EDITOR to edit the changelog"
 
   Scenario: Re-releasing the same version is forbidden
     Given I initialize a gem called "myproject"

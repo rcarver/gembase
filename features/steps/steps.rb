@@ -82,3 +82,6 @@ Then /^my project on github has the tag "([^"]*)"$/ do |tag|
   }
 end
 
+Given /^I set my EDITOR to "([^"]*)"$/ do |value|
+  set_env "EDITOR", value
+end
