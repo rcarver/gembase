@@ -34,7 +34,7 @@ gembase projects conform to the following rules:
   a git tag based on `VERSION` (a rubyforge project is not assumed).
   and pushes those changes.
 
-### Releasing gems
+## Releasing gems
 
 Gembase makes it trivial to tag and release new versions of your code. A release here
 simply means a tagged version at GitHub, along with information in the CHANGELOGE.md.
@@ -63,7 +63,7 @@ Keeping up to date with the latest rake tasks is easy.
 
     rake selfupdate
 
-# Minimal
+## Minimal
 
 If you don't want gembase to bootstrap your entire project
 but would like to use its conventions rake tasks, just grab
