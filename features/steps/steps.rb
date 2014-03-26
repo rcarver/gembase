@@ -36,8 +36,8 @@ When /^I fill in project information in the gemspec$/ do
   info = {
     "TODO: Write your name" => "John Smith",
     "TODO: Write your email address" => "john@example.com",
-    "TODO: Write a gem summary" => "A sample gem",
-    "TODO: Write a gem description" => "A sample gem"
+    "TODO: Write a short summary. Required." => "A sample gem",
+    "TODO: Write a longer description. Optional." => "A sample gem that is just a sample."
   }
   file = "myproject.gemspec"
   Dir.chdir(current_dir) {

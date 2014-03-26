@@ -24,6 +24,7 @@ Feature: Gembase releases gems
 
   Scenario: Abort if not on the master branch
     Given I initialize a gem called "myproject"
+    And I fill in project information in the gemspec
     When I commit the changes with "initialize the gem"
     And I run `git checkout -b foo`
     And I run `rake release`
@@ -31,12 +32,14 @@ Feature: Gembase releases gems
 
   Scenario: Abort without an EDITOR
     Given I initialize a gem called "myproject"
+    And I fill in project information in the gemspec
     And I set my EDITOR to ""
     And I run `rake release`
     Then the stderr from "rake release" should contain "You must set an EDITOR to edit the changelog"
 
   Scenario: Re-releasing the same version is forbidden
     Given I initialize a gem called "myproject"
+    And I fill in project information in the gemspec
     When I commit the changes with "initialize the gem"
     And I successfully run `git tag v0.0.1`
     And I run `rake release`
