@@ -53,5 +53,5 @@ task :default => :test
 
 desc "Update Rakefile.base"
 task :selfupdate do
-  sh "curl -sO https://raw.github.com/rcarver/gembase/master/Rakefile.base"
+  sh "curl -sLO https://raw.github.com/rcarver/gembase/master/Rakefile.base"
 end
