@@ -8,14 +8,14 @@ echo 'Creating Rakefile'
 if [ "$RAKETEMPLATE" != "" ]; then
   cp $RAKETEMPLATE Rakefile
 else
-  curl -s "https://raw.github.com/rcarver/gembase/master/Rakefile.template" > Rakefile
+  curl -sL "https://raw.github.com/rcarver/gembase/master/Rakefile.template" > Rakefile
 fi
 
 echo 'Creating Rakefile.base'
 if [ "$RAKEBASE" != "" ]; then
   cp $RAKEBASE .
 else
-  curl -sO "https://raw.github.com/rcarver/gembase/master/Rakefile.base"
+  curl -sLO "https://raw.github.com/rcarver/gembase/master/Rakefile.base"
 fi
 
 echo 'Creating CHANGELOG.md'
